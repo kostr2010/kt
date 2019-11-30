@@ -8,7 +8,7 @@ int main()
    int     fd[2], result;
 
    size_t size;
-   char  resstring[14];
+   char  resstring[19];
 
    if(pipe(fd) < 0){
      printf("Can\'t open pipe\n");
@@ -26,9 +26,9 @@ int main()
 
       close(fd[0]);
 
-      size = write(fd[1], "Hello, world!", 14);
+      size = write(fd[1], "Hello, konstantin!", 19);
 
-      if(size != 14){
+      if(size != 19){
         printf("Can\'t write all string to pipe\n");
         exit(-1);
       }
@@ -41,7 +41,7 @@ int main()
       /* Child process */
 
       close(fd[1]);
-      size = read(fd[0], resstring, 14);
+      size = read(fd[0], resstring, 19);
 
       if(size < 0){
          printf("Can\'t read string from pipe\n");

@@ -13,7 +13,7 @@ int main()
 
    size_t  size;
    char    resstring[14];
-   char    name[] = "aaa.fifo";
+   char    name[] = "hhh.fifo";
 
    if(mknod(name, __S_IFIFO | 0666, 0) < 0){
      printf("Can\'t create FIFO\n");

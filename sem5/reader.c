@@ -7,9 +7,9 @@
 int main(int argc,char* argv[], char* envp[]) {
     int fd = atoi(argv[1]);
 
-    char* buf = calloc(8, sizeof(char));
+    char* buf = calloc(20, sizeof(char));
 
-    if ((read(fd, buf, 8)) != 8) {
+    if ((read(fd, buf, 29)) != 19) {
         printf("cant read file\n");
         exit(-1);
     }

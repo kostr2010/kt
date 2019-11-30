@@ -8,7 +8,7 @@
 int main(int argc, char* argv[], char* envp[]) {
     int fd = atoi(argv[1]);
 
-    char str[] = "AYAYAYA\n";
+    char str[] = "AYAYAYA Konstantin\n";
 
     if (write(fd, str, strlen(str)) != strlen(str)) {
         printf("cant write to file\n");

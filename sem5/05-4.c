@@ -10,7 +10,7 @@ int main()
    int     fd, result;
 
    size_t  size;
-   char    resstring[14];
+   char    resstring[19];
    char    name[] = "aaa.fifo";
 
    if(mknod(name, S_IFIFO | 0666, 0) < 0){
@@ -29,12 +29,12 @@ int main()
 
       if((fd = open(name, O_WRONLY)) < 0){
          printf("Can\'t open FIFO for writting\n");
-	 exit(-1);
+	      exit(-1);
       }
 
-      size = write(fd, "Hello, world!", 14);
+      size = write(fd, "Hello, konstantin!", 19);
 
-      if(size != 14){
+      if(size != 19){
         printf("Can\'t write all string to FIFO\n");
         exit(-1);
       }
@@ -51,14 +51,14 @@ int main()
 	 exit(-1);
       }
 
-      size = read(fd, resstring, 14);
+      size = read(fd, resstring, 19);
 
       if(size < 0){
          printf("Can\'t read string from FIFO\n");
          exit(-1);
       }
 
-      printf("Child exit, resstring:%s\n", resstring);
+      printf("Child exit, resstring: %s\n", resstring);
 
       close(fd);
    }

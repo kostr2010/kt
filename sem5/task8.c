@@ -11,9 +11,7 @@ int main(){
 	pipe(fd);
 
 	printf("%d\n", fcntl(fd[1], F_GETPIPE_SZ));
-    fcntl(fd[1], F_SETPIPE_SZ, 5000);
-	printf("%ld\n", (long)fcntl(fd[1], F_GETPIPE_SZ));
-
+	
 	close(fd[0]);
 	close(fd[1]);
 }

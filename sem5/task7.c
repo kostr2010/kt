@@ -28,7 +28,7 @@ int main()
         close(fdChPar[1]);  // closing write channel
 
         size = write(fdParCh[1], "Hello, child!", 14);
-        printf("said: <Hello, child!>\n");
+        printf("child said: <Hello, child!>\n");
 
         if(size != 14){
           printf("Can\'t write all string to pipe\n");
@@ -39,7 +39,7 @@ int main()
 
         read(fdChPar[0], buf1, 14);
 
-        printf("recieved: <%s>\n");
+        printf("parent recieved: <%s>\n");
 
         close(fdParCh[1]);
         close(fdChPar[0]);
@@ -55,7 +55,7 @@ int main()
         close(fdChPar[0]);  // closing read channel
 
         size = write(fdChPar[1], "Hello, daddy!", 14);
-        printf("said: <Hello, daddy!>\n");
+        printf("child said: <Hello, daddy!>\n");
 
         if(size != 14){
           printf("Can\'t write all string to pipe\n");
@@ -66,7 +66,7 @@ int main()
 
         read(fdParCh[0], buf2, 14);
 
-        printf("recieved: <%s>\n");
+        printf("child recieved: <%s>\n");
 
         close(fdParCh[1]);
         close(fdChPar[0]);
