@@ -12,6 +12,12 @@
 
 //####################//
 
+struct _DataText {
+    char* buf;
+    int maxLen;
+};
+typedef struct _DataText DataText;
+
 struct _DataNum {
     int msgI;
     float msgF;
@@ -26,7 +32,7 @@ typedef struct _MyMsgNum MyMsgNum;
 
 struct _MyMsgText {
     long mtype;
-    char* mbuf;
+    char mbuf[50];
 };
 typedef struct _MyMsgText MyMsgText;
 

@@ -10,7 +10,6 @@
 //####################//
 
 const char* pathname = "task2-a.c";
-const int nmsg = 7;
 const int msgLast = 17;
 
 //####################//
@@ -29,6 +28,7 @@ int main() {
     while (1) {
         if (msgrcv(msgid, (struct msgbuf *) (msgn), sizeof(DataNum), 0, 0) == -1){
             printf("Can\'t receive message from queue\n");
+            msgctl(msgid, IPC_RMID, NULL);
             exit(-1);
         }
         

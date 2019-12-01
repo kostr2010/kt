@@ -2,7 +2,7 @@
 
 //####################//
 
-const int msgTextMaxLen = 50;
+int msgTextMaxLen = 50;
 
 //####################//
 
@@ -35,6 +35,7 @@ void MyMsgNumFree(MyMsgNum* msg) {
 
 MyMsgText* MyMsgTextAlloc() {
     MyMsgText* msg = calloc(1, sizeof(MyMsgText));
+    //msg->mbuf = calloc(msgTextMaxLen, sizeof(char));
 
     return msg;
 }
@@ -44,7 +45,6 @@ int MyMsgTextInit(MyMsgText* msg, long mtype, const char* text) {
         return -1;
 
     msg->mtype = mtype;
-    msg->mbuf = calloc(msgTextMaxLen, sizeof(char));
     if (msg->mbuf == NULL)
         return -1;
     
@@ -53,6 +53,8 @@ int MyMsgTextInit(MyMsgText* msg, long mtype, const char* text) {
         return -1;
     } else
         memcpy(msg->mbuf, text, strlen(text));
+
+    printf("<%s>\n", msg->mbuf);
 
     return 0;
 }
