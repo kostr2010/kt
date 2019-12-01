@@ -11,7 +11,7 @@
 
 const char* pathname = "task2-a.c";
 const int nmsg = 7;
-const int msgLast = 17;
+const int msgLast = 2;
 
 //####################//
 

@@ -54,8 +54,6 @@ int MyMsgTextInit(MyMsgText* msg, long mtype, const char* text) {
     } else
         memcpy(msg->mbuf, text, strlen(text));
 
-    printf("<%s>\n", msg->mbuf);
-
     return 0;
 }
 

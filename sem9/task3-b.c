@@ -12,16 +12,24 @@
 //####################//
 
 const char* pathname = "task3-a.c";
-const int nmsg = 3;
-const int msgLastNum = 19;
-const int msgLastText = 17;
+const int nmsg = 5;
+const int msgNum = 1;
+const int msgLastNum = 2;
+const int msgText = 3;
+const int msgLastText = 4;
+
+//####################//
+
+void RcvErrHandler();
+void RcvNumHandler(MyMsgNum* msgn);
+void RcvLastNumHandler(char* flag);
 
 //####################//
 
 int main() {
     key_t key = ftok(pathname, 0);
     MyMsgText* msgt = MyMsgTextAlloc();
-    if (MyMsgTextInit(msgt, 2, "hullo, yullo")) {
+    if (MyMsgTextInit(msgt, msgText, "hullo, yullo")) {
         printf("initialization error!\n");
         exit(-1);
     }
@@ -32,7 +40,7 @@ int main() {
         printf("can't get message queue!\n");
         exit(-1);
     }
-
+    
     for (int i = 0; i < nmsg; i++) {
         if (msgsnd(msgid, (void*)(msgt), 50, 0) == -1) {
             printf("Can\'t send message to queue\n");
@@ -49,22 +57,38 @@ int main() {
         exit(-1);
     }
     
-    while (1) {
-        if (msgrcv(msgid, (struct msgbuf *) (msgn), sizeof(DataNum), 1, 0) == -1){
-            printf("Can\'t receive message from queue\n");
-            exit(-1);
-        }
-        
-        if (msgn->mtype == msgLastNum) {
-            msgctl(msgid, IPC_RMID, NULL);
-            break;
-        }
-
-        printf("message type = %ld, info = %d %f\n", msgn->mtype, (msgn->mdata).msgI, (msgn->mdata).msgF);
+    char transEnd = 0;    
+    while (transEnd == 0) {
+        if (msgrcv(msgid, (struct msgbuf *) (msgn), sizeof(DataNum), msgNum, IPC_NOWAIT) == -1) {
+            if (errno != ENOMSG)
+                RcvErrHandler();
+            else {  // queue empty on numeric messages. looking for the last numeric
+                if (msgrcv(msgid, (struct msgbuf *) (msgn), sizeof(DataNum), msgLastNum, IPC_NOWAIT) == -1) {
+                    if (errno != ENOMSG)
+                        RcvErrHandler();
+                    else
+                        continue;
+                } else
+                    RcvLastNumHandler(&transEnd);
+            }
+        } else
+            RcvNumHandler(msgn);
     }
-
+    
     return 0;
 }
 
 //####################//
 
+void RcvErrHandler() {
+    printf("Can\'t receive message from queue\n");
+    exit(-1);
+}
+
+void RcvNumHandler(MyMsgNum* msgn) {
+    printf("message type = %ld, info = %d %f\n", msgn->mtype, (msgn->mdata).msgI, (msgn->mdata).msgF);
+}
+
+void RcvLastNumHandler(char* flag) {
+    *flag = 1;
+}
