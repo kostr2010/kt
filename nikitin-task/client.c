@@ -53,7 +53,7 @@
 
 void LeaveFullStation();
 void WaitForTurn();
-void GetToStation(int semid);
+void GetToStation();
 void PayForJob();
 void LeaveService();
 void LeaveStation();
@@ -164,10 +164,7 @@ void WaitForTurn() {
     return;
 }
 
-void GetToStation(int semid) {
-    if (semctl(semid, 1, GETVAL) == 0)
-        printf("[client] awakened this lazy bastard\n");
-
+void GetToStation() {
     printf("[client] left my transport in the service\n");
 
     return;

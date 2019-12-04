@@ -84,7 +84,7 @@ int main() {
         exit(-1);
     } else if (shmem->new == 1) {
         *(int*)(shmem->buf) = carsMax;
-        printf("[master] shared memory chunk created!\n vacant places: %d", carsMax);
+        printf("[master] shared memory chunk created!\n vacant places: %d\n", carsMax);
     }
 
     // 0 - queue    | for client's queue
@@ -114,7 +114,7 @@ int main() {
         return -1;
     }
 
-    printf("opened the service, waiting for customers!\n");
+    printf("[master] opened the service, waiting for customers!\n");
 
     while (1) {
         P_master;
