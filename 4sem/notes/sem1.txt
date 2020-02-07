@@ -1,0 +1,11 @@
+project:
+	- end of feb:   repoitory on github with idea. develop step-by-step and future development
+	- end of march: prototype
+	- end of april: finale
+
+literature:
+	- этюды для программистов
+	- net logo library
+
+oop:
+	- 
